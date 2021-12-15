@@ -5,7 +5,7 @@ def get_prime_number(num):
     elif num == 2:
         return True
 
-    for i in range(3, num):
+    for i in range(2, num):
         if num % i == 0:
             return False
 
