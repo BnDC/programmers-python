@@ -14,27 +14,24 @@ def get_prime_number(num):
 
 def solution(nums):
     answer = 0
-    record = set()
-
     for i in range(len(nums)):
         for j in range(i+1, len(nums)):
             for k in range(j+1, len(nums)):
                 target = nums[i] + nums[j] + nums[k]
-                print(target)
 
-                if target not in record:
-                    if get_prime_number(target):
-                        record.add(target)
-    print(record)
-    return len(record)
+                if get_prime_number(target):
+                    answer += 1
+
+    return answer
 
 
 print(get_prime_number(9))
 print(solution([1, 2, 3, 4]))
 print('\n')
+
 print(solution([1, 2, 7, 6, 4]))
 print('\n')
-print(solution([1, 3, 5, 7, 9]))
-# 9 11 13 13 15 15 17 19 21
 
+print(solution([1, 3, 5, 7, 9]))
+# 9 11 13 13 15 17 15 17 19 21
 print('\n')
