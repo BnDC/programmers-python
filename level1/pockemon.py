@@ -1,9 +1,9 @@
-from itertools import combinations
-
-
 def solution(nums):
     n = len(nums)//2
-    com = set(combinations(nums, n))
-    count = set(map(lambda x: len(set(x)), com))
+    nums_set = set(nums)
 
-    return max(count)
+    if n < len(nums_set):
+        return n
+
+    else:
+        return len(nums_set)
