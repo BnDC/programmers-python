@@ -3,6 +3,8 @@ def solution(N, stages):
     failure_rate_list = []
 
     for stage in range(1, N+1):
+        if users <= 0:
+            users = 1
         failure_users = stages.count(stage)
         failure_rate_list.append((stage, failure_users / users))
         users -= failure_users
