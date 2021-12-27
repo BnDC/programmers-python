@@ -1,4 +1,3 @@
-# third_try
 def solution(N, stages):
     users = len(stages)
     failure_rate_list = []
