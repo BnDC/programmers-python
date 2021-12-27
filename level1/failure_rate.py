@@ -1,23 +1,19 @@
 def solution(N, stages):
     answer = []
-    # users_number = len(stages)
+    users = len(stages)
     failure_rate_list = []
-    previous_stage_failure_users = 0
+    #failure_users = [stages.count(stage) for stage in range(1, N+1)]
+    #answer = [failure_users[i] / (users - failure_users[i-1]) for i in range(len(failure_users))]
 
-    for failure_stage in range(1, N+1):
-
-        previous_stage_failure_users = stages.count(failure_stage - 1)
-        current_failure_users = stages.count(failure_stage)
-
-        failure_rate = current_failure_users / \
-            (N - previous_stage_failure_users)
+    for stage in range(1, N+1):
+        failure_rate = stages.count(stage) / users
         failure_rate_list.append(failure_rate)
+        users -= stages.count(stage)
 
     for _ in range(len(failure_rate_list)):
-        max_failure_rate_index = failure_rate_list.index(
-            max(failure_rate_list))
-        answer.append(max_failure_rate_index + 1)
-        failure_rate_list[max_failure_rate_index] = -1
+        index = failure_rate_list.index(max(failure_rate_list))
+        failure_rate_list[index] = -1
+        answer.append(index + 1)
 
     return answer
 
