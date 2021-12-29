@@ -20,3 +20,5 @@ def solution(n, arr1, arr2):
         answer.append(temp)
 
     return answer
+
+# 비트연산자 고려 & replace 못쓴거 반성
