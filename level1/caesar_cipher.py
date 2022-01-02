@@ -1,19 +1,14 @@
 def solution(s, n):
     answer = ''
-    n = n % 26
     for i in range(len(s)):
         d = ord(s[i])
         if s[i] == ' ':
             answer += ' '
-
         else:
-            if s[i] == s[i].upper() and d+n >= 90:
-                answer += chr(d+n - 26)
-            elif s[i] == s[i].lower() and d+n >= 122:
-                answer += chr(d+n - 26)
-            else:
+            if (d <= 90 and d+n >= 90) or d+n >= 122:
+                answer += chr(d+n-26)
+            elif 65 <= d+n < 90 or 97 <= d+n < 122:
                 answer += chr(d+n)
-
     return answer
 
 
