@@ -1,44 +1,53 @@
 import math
-import time
 
 
 def solution(n):
-    answer = 0
     units = [2, 3, 5, 7]
 
-    def is_prime_number(n):
-        if n > 1000:
-            n = int(math.sqrt(n))
+    def divide_unit(n):
+        units = [2, 3, 5, 7]
 
-        if n == 1:
-            return False
+        if 100 < n:
+            m = int(math.sqrt(n))
+            units = seek_prime_number_up_to_thousand(100)
 
-        elif n < 10:
-            if not n in units:
+        if 1000 < n:
+            m = int(math.sqrt(n))
+            units = seek_prime_number_up_to_thousand(m)
+
+        for unit in units:
+            if n % unit == 0:
                 return False
-
-        elif n <= 100:
-            for unit in units:
-                if n % unit == 0:
-                    return False
-
-        elif n <= 1000:
-            tens = list(filter(is_prime_number, range(11, 100)))
-            tens += units
-            for unit in tens:
-                if n % unit == 0:
-                    return False
 
         return True
 
-    answer = list(filter(is_prime_number, range(n)))
-    print(is_prime_number(1005), math.sqrt(1005))
+    def seek_prime_number_up_to_thousand(n):
+        answer = []
+        units = [2, 3, 5, 7]
+        answer = list(filter(lambda x: x <= n, units))
+        if n <= 10:
+            return answer
 
-    return len(answer)
+        elif n <= 100:
+            answer += list(filter(divide_unit, range(11, n+1)))
+            return answer
+
+        elif n <= 1000:
+            answer += list(filter(divide_unit, range(11, 100)))
+            #units = answer
+            answer += list(filter(divide_unit, range(101, n+1)))
+            # print(answer)
+            return answer
+
+        else:
+            answer += list(filter(divide_unit, range(11, 100)))
+            answer += list(filter(divide_unit, range(101, 1000)))
+            answer += list(filter(divide_unit, range(1001, n+1)))
+            # print(answer)
+            return answer
+
+    return len(seek_prime_number_up_to_thousand(n))
 
 
-# start = time.time()
-# print(solution(1000000))
-# end = time.time()
-# print(end - start)
-print(solution(5))
+print(solution(100000))
+print(solution(11))
