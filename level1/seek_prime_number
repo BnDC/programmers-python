@@ -1,53 +1,27 @@
 import math
+import time
 
 
 def solution(n):
-    units = [2, 3, 5, 7]
+    answer = [1] * (n + 1)
+    x = int(math.sqrt(n))
 
-    def divide_unit(n):
-        units = [2, 3, 5, 7]
+    answer[0] = 0
+    answer[1] = 0
 
-        if 100 < n:
-            m = int(math.sqrt(n))
-            units = seek_prime_number_up_to_thousand(100)
+    for i in range(2, x+1):
+        for j in range(i*2, n+1, i):
+            if answer[j] == 0:
+                continue
 
-        if 1000 < n:
-            m = int(math.sqrt(n))
-            units = seek_prime_number_up_to_thousand(m)
+            answer[j] = 0
 
-        for unit in units:
-            if n % unit == 0:
-                return False
-
-        return True
-
-    def seek_prime_number_up_to_thousand(n):
-        answer = []
-        units = [2, 3, 5, 7]
-        answer = list(filter(lambda x: x <= n, units))
-        if n <= 10:
-            return answer
-
-        elif n <= 100:
-            answer += list(filter(divide_unit, range(11, n+1)))
-            return answer
-
-        elif n <= 1000:
-            answer += list(filter(divide_unit, range(11, 100)))
-            #units = answer
-            answer += list(filter(divide_unit, range(101, n+1)))
-            # print(answer)
-            return answer
-
-        else:
-            answer += list(filter(divide_unit, range(11, 100)))
-            answer += list(filter(divide_unit, range(101, 1000)))
-            answer += list(filter(divide_unit, range(1001, n+1)))
-            # print(answer)
-            return answer
-
-    return len(seek_prime_number_up_to_thousand(n))
+    return answer.count(1)
 
 
-print(solution(100000))
-print(solution(11))
+start = time.time()
+print(solution(1000000))
+end = time.time()
+print(end - start)
+
+print(solution(5))
