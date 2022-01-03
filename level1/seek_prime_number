@@ -1,0 +1,44 @@
+import math
+import time
+
+
+def solution(n):
+    answer = 0
+    units = [2, 3, 5, 7]
+
+    def is_prime_number(n):
+        if n > 1000:
+            n = int(math.sqrt(n))
+
+        if n == 1:
+            return False
+
+        elif n < 10:
+            if not n in units:
+                return False
+
+        elif n <= 100:
+            for unit in units:
+                if n % unit == 0:
+                    return False
+
+        elif n <= 1000:
+            tens = list(filter(is_prime_number, range(11, 100)))
+            tens += units
+            for unit in tens:
+                if n % unit == 0:
+                    return False
+
+        return True
+
+    answer = list(filter(is_prime_number, range(n)))
+    print(is_prime_number(1005), math.sqrt(1005))
+
+    return len(answer)
+
+
+# start = time.time()
+# print(solution(1000000))
+# end = time.time()
+# print(end - start)
+print(solution(5))
