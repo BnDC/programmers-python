@@ -2,15 +2,12 @@ def solution(brown, yellow):
     answer = []
 
     for divisor in range(1, yellow+1):
-        if yellow % divisor != 0:
-            continue
+        if yellow % divisor == 0:
+            divisor_pair = yellow//divisor
+            border = 2*(divisor+divisor_pair) + 4
 
-        divisor_pair = yellow//divisor
-
-        border = 2*(divisor+divisor_pair) + 4
-
-        if border == brown:
-            answer = [divisor+2, divisor_pair+2]
+            if border == brown:
+                answer = [divisor+2, divisor_pair+2]
 
     answer.sort(reverse=True)
 
