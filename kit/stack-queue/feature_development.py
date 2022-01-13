@@ -1,14 +1,11 @@
+from math import ceil
+
+
 def solution(progresses, speeds):
     COMPLETE = 100
-    durations = []
-    stack = []
+    stack = [ceil((COMPLETE - progresses[idx])/speeds[idx])
+             for idx in range(len(progresses)-1, -1, -1)]
     answers = []
-
-    for idx in range(len(progresses)-1, -1, -1):
-        duration = 1
-        while speeds[idx]*duration < COMPLETE - progresses[idx]:
-            duration += 1
-        stack.append(duration)
 
     while stack:
         answer = 1
