@@ -1,38 +1,29 @@
-# third - try: 실패
-import collections
-
+# fourth - try: 3, 12실패
 
 def solution(phone_book):
     phone_book.sort(key=lambda x: len(x))
-    hash_map = collections.defaultdict(int)
-    m = -1
+    hash_map = {}
+    before_length = len(phone_book[0])
 
     for i in range(len(phone_book)):
-        n = len(phone_book[i])
-        if n == m:
-            continue
+        current_length = len(phone_book[i])
+        hash_map[phone_book[i]] = 1
 
-        elif n == len(phone_book[-1]):
-            return True
-
-        for sliced_number in [number[:n] for number in phone_book]:
-            if hash_map[sliced_number] == 0:
-                hash_map[sliced_number] += 1
-                # print(hash_map)
-            else:
-                return False
-        m = n
+    if current_length != before_length:
+            for sliced_number in [number[:before_length] for number in phone_book[i+1:]]:
+                if hash_map.get(sliced_number):  # not 실수 주의
+                    # print(sliced_number)
+                    return False
+        before_length = current_length
 
     return True
 
-#print(solution(["119", "97674223", "1195524421"]))
-# print(solution(["123","456","789"]))
-# print(solution(["12","123","1235","567","88"]))
 
-
+print(solution(["12", "456789", "23", "34", "456"]))  # error
 '''
-그 자체로 접두사가 아닌 원소에 포함된 문자가 딕셔너리에 저장해
-ex ["1234", "1235"]
-
-실패
+["12", "23", "34", "456", "456789"]
+"456"의 경우 
+두 글자가 다 검사가 안끝났음에도,
+세 글자 검사로 넘어가게 되는 문제 발생
+근데 검사를 두 글자로 함
 '''
