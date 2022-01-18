@@ -3,11 +3,10 @@ import collections
 
 def solution(clothes):
     answer = 1
-
     stuff = collections.defaultdict(list)
 
-    for c in clothes:
-        stuff[c[1]] += [c[0]]
+    for name, kind in clothes:
+        stuff[kind] += [name]
 
     for s in stuff.values():
         answer *= len(s) + 1
