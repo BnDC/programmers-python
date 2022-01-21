@@ -4,9 +4,8 @@ def solution(scoville, K):
     answer = 0
     
     heapq.heapify(scoville)
-    print(scoville)
     
-    while scoville:
+    while len(scoville) >= 2:
         answer += 1
         
         first  = heapq.heappop(scoville) 
