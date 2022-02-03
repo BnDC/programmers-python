@@ -1,36 +1,28 @@
 import collections
 
 def solution(bridge_length, weight, truck_weights):
-    answer = 0
+    trucks = [[truck, 0] for truck in reversed(truck_weights)]
     stack  = []
     queue  = collections.deque()
-    arrived_truck = []
-    all = len(truck_weights)
-    trucks = [[truck, 0] for truck in reversed(truck_weights)]
-    next = None
+    answer = 0
+    all    = len(truck_weights)
+    next   = None
 
     while len(stack) < all:
         if next:
             stack.append(next)
-
-        #print(trucks)
-        #print(queue)
 
         if trucks and sum(e[0] for e in queue) + trucks[-1][0] <= weight:
             queue.append(trucks.pop())
         
         answer += 1
         for q in queue:
-            #print(q)
             q[1] += 1
-            
-        
+
         if queue and queue[0][1] == bridge_length:
             next = queue.popleft()
         else:
             next = None
-        
-    print(answer)
 
     return answer
 
