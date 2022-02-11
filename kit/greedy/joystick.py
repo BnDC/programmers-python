@@ -1,54 +1,35 @@
-import copy
+from operator import le
+
 
 def solution(name):
-    answer  = [0, 0]
-    left    = 0
-    right   = 0
-    # initial_codes = [[65] * len(name)] * 2
-    initial_codes = [[65] * len(name) for _ in range(2)]
-    name_codes    = [ord(alp) for alp in name]
-    alphabet = [i for i in range(65, 91)]
-    def count_up_or_down(x):
-        cnt = 0
-        for i in range(27):
-            if x == alphabet[i]:
-                cnt = i
-                break
+    answer = 0
+    idx    = 0
+    difference_list = [ord(alp) - ord('A') if ord(alp) < 78 else ord('Z') - ord(alp) + 1 for alp in name]
 
-            if x == alphabet[25 - i]:
-                cnt = i + 1
-                break
+    while True:#difference_list != [0]*len(name):
+        left, right = 1, 1 
+        answer     += difference_list[idx]
+        difference_list[idx] = 0 
 
-        return cnt
-
-    while (initial_codes[0] != name_codes) and (initial_codes[1] != name_codes):
-        answer[0] += count_up_or_down(name_codes[left])
-        answer[1] += count_up_or_down(name_codes[right])
-
-        initial_codes[0][left]  = name_codes[left]
-        initial_codes[1][right] = name_codes[right]
-
-        if (left > -len(name_codes) + 1) and initial_codes[0] == name_codes:
-            return answer[0]
-        elif right < len(name_codes) - 1 and initial_codes[1] == name_codes:
-            return answer[1]
-        elif right == len(name_codes) - 1 and initial_codes[1] == name_codes:
-            return min(answer)
-
-        left  -= 1
-        right += 1
+        while idx-left > -len(name) and difference_list[idx-left] == 0:
+            left += 1
         
-        answer[0] += 1
-        answer[1] += 1
+        while idx+right <len(name) and difference_list[idx+right] == 0:
+            right += 1
 
-    return min(answer)
+        idx = idx + 1 if right <= left else idx - 1 
+        
+        if difference_list == [0]*len(name):
+            break
+        
+        answer += 1
 
-# print(solution('JAZ'))
-# print(solution('JEROEN'))
-# print(solution('JAN'))
+    return answer
 
-print(solution('AAA'))
-# print(solution('ZAZAZ'))
-
-# 오답 - !!패착!!
-# 정한 방향으로 이동하는 상황만 상정
+# print(solution("JAN"))
+# print(solution("JEROEN"))
+# print(solution("ABABABAA"))
+# print(solution("AABAAAAABBB"))
+# print(solution("ABAAAAAAAAABB"))
+print(solution("BBBBAAAAAB"))
+print(solution("BBBBAAAABA"))
