@@ -1,6 +1,3 @@
-from operator import le
-
-
 def solution(name):
     answer = 0
     idx    = 0
@@ -31,5 +28,5 @@ def solution(name):
 # print(solution("ABABABAA"))
 # print(solution("AABAAAAABBB"))
 # print(solution("ABAAAAAAAAABB"))
-print(solution("BBBBAAAAAB"))
-print(solution("BBBBAAAABA"))
+print(solution("BBBBAAAAAB")) # 이 알고리즘으로 해결 못하는 케이스 1  8이 나와야 된다
+print(solution("BBBBAAAABA")) # 이 알고리즘으로 해결 못하는 케이스 2 
