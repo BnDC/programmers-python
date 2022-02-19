@@ -7,7 +7,7 @@ def solution(number, k):
     digit_number = n - k
 
     while True:
-        max_number = '0' # max_number가 '0'으로 초기화시 number에 0이 포함되어있을 때 문제 발생
+        max_number = '-' # max_number가 '0'으로 초기화시 number에 0이 포함되어있을 때 문제 발생
         max_idx = 0
         for i in range(start, end):
             if max_number < number[i]:
