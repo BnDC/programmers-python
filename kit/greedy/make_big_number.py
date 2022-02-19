@@ -1,31 +1,48 @@
 def solution(number, k):
     answer = ''
-    # number = list(map(int, list(number)))
-    # number = [int(n) for n in number]
-    number = list(number)
-    digit_number = len(number) - k
+    n      = len(number)
+    start  = 0
+    end = start + k + 1
 
-    while k != 0:
-        max_num = max(number[:-digit_number + 1])
-        answer += max_num
-        before_max = number.index(max_num)
-        number = number[before_max + 1:]
-        k -= before_max
+    digit_number = n - k
+
+    while True:
+        max_number = '0' # max_number가 '0'으로 초기화시 number에 0이 포함되어있을 때 문제 발생
+        max_idx = 0
+        for i in range(start, end):
+            if max_number < number[i]:
+                max_number = number[i]
+                max_idx = i
+
+
+        answer += number[max_idx]
+
+        k -= max_idx - start
         digit_number -= 1
+        start = max_idx + 1
+        end = min(start + k + 1, n)
 
-        if digit_number == len(number):
-            answer += ''.join(number)
+        if k <= 0:
+            answer += number[start:]
             break
 
-        if len(number) == 2:
-            if k == 1:
-                #answer += max(number)
-                answer += max(number)
-                break
+        if digit_number == 0:
+            break
 
     return answer
 
 
-print(solution("1924", 2))
+# print(solution("1924", 2))
 # print(solution("1231234", 3))
 # print(solution("4177252841", 4))
+
+number = '935921'
+k      = 5
+
+print('before_n: ', len(number))
+print()
+
+
+result = solution(number, k)
+print('after_n: ', len(number))
+print(result)
