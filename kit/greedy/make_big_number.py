@@ -14,6 +14,8 @@ def solution(number, k):
                 max_number = number[i]
                 max_idx = i
 
+            if max_number == '9':  # 추가 -> 8번 실패
+                break  # 추가 -> 8번 실패
 
         answer += number[max_idx]
 
