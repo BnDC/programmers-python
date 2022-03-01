@@ -1,21 +1,29 @@
 def solution(n, computers):
     visited    = [False] * n
     network    = n
-    visited[0] = True
+    #visited[0] = True
     
     def dfs(v):
         nonlocal network
-        for i, v in enumerate(computers[v]):
-            if not visited[i]:
+        for i, connected in enumerate(computers[v]):
+            if not visited[i] and connected == 1:
                 visited[i] = True
-                if v == 1:
-                    network -= 1 
+                # if conected == 1 and before != None:
+                if v != i:
+                    network -= 1
                 dfs(i)
     
-    dfs(0)
+    for i in range(len(visited)):
+        if not visited[i]:
+            dfs(i)
     
     return network
     
 # print(solution(3, [[1, 1, 0], [1, 1, 0], [0, 0, 1]]))
 # print(solution(3, [[1, 1, 0], [1, 1, 1], [0, 1, 1]]))
-print(solution(4, [[1, 1, 0, 0], [1, 1, 0, 0], [0, 0, 1, 1], [0, 0, 1, 1]]))
+# print(solution(4, [[1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1]]))
+# print(solution(3, [[1, 1, 0], [1, 1, 0], [0, 0, 1]]), 2)
+# print(solution(3, [[1, 1, 0], [1, 1, 1], [0, 1, 1]]), 1)
+print(solution(3, [[1, 0, 1], [0, 1, 0], [1, 0, 1]]), 2)
+print(solution(4, [[1, 1, 0, 1], [1, 1, 0, 0], [0, 0, 1, 1], [1, 0, 1, 1]]), 1)
+# print(solution(4, [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]), 4)
