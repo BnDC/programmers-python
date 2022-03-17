@@ -4,24 +4,22 @@ def solution(n, times):
     left  = 0
     right = n * times[0]
     
-    while answer != n:    
+    while left < right:    
         
         mid = (left + right) // 2
         answer = 0
+    
         for time in times:
             answer += (mid // time)
+            if answer >= n:
+                break
         
-        if n < answer:
-            right = mid
+        if n <= answer:
+            right = mid - 1
         elif n > answer:
-            left = mid
-        else:
-            break
-    
-    mid -= mid % times[0]
+            left = mid + 1
         
-    return mid
-    
+    return left
 
 # print(solution(6, [7, 10]))
 print(solution(10, [5, 15]))
