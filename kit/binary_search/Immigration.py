@@ -15,11 +15,10 @@ def solution(n, times):
                 break
         
         if n <= answer:
-            right = mid - 1
+            right = mid # 이 부분 바꾸니까 답
         elif n > answer:
             left = mid + 1
+    
+    # mid -= mid % times[0]
         
     return left
-
-# print(solution(6, [7, 10]))
-print(solution(10, [5, 15]))
