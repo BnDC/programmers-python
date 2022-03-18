@@ -2,33 +2,26 @@ import collections
 
 
 def solution(begin, target, words):
-    visited = []
-    answer = []
-    
     if target not in words:
         return 0
 
-    def dfs(start, chars, cnt):
-        if start in visited:
-             return
+    queue = collections.deque()
+    cnt = 0
+    h = {}
 
-        visited.append(start)
+    queue.append((begin, 0))
 
-        if start == target:
-            answer.append(cnt)
-            return
+    while queue:
+        now, cnt = queue.popleft()
+        cnt += 1
+        for word in words:
+            if len(set(word) - set(now)) == 1 or len(set(now) - set(word)) == 1: # 문제
+                queue.append((word, cnt))
+                if word not in h:
+                    h[word] = cnt
+                else:
+                    h[word] = min(h[word], cnt)
+        if now in words:
+            words.remove(now)
 
-        for char in chars:
-            if len(set(start) - set(char)) == 1:
-                after = chars[:]
-                after.remove(char)
-                cnt += 1
-                dfs(char, after, cnt)
-                cnt -= 1
-
-    dfs(begin, words, 0)
-
-    return min(answer)
-
-
-# print(solution("hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"]))
+    return h[target]
