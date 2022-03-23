@@ -1,33 +1,37 @@
+import heapq
+
+
 def solution(n, edge):
-    answer  = []
-    visited = [False] * (n + 1)
-    graph   = [[] for i in range(n + 1)]
-    
+    answer = 0
+    INF = int(1e9)
+    distance = [INF] * (n + 1)
+    distance[1] = 0
+    graph = [[] for i in range(n + 1)]
+
     for v, u in edge:
         if v < u:
-            graph[v].append((u))
+            graph[v].append((u, 1))
         else:
-            graph[u].append((v))
-    
-    def dfs(v, cnt):        
-        if visited[v]:
-            return
-        
-        visited[v] = True
-        cnt += 1
-        
-        if len(graph[v]) == 0:
-            answer.append(v)
-            
+            graph[u].append((v, 1))
 
-        # if result < cnt:
-        #     result = cnt
-        # elif result == cnt:
-        #     answer += 1
-        
-        for x in graph[v]:
-            dfs(x, cnt)
+    heap = []
 
-    dfs(1, 0)
-        
-    return len(answer)
+    heapq.heappush(heap, (0, 1))
+
+    while heap:
+        way_point_cost, v = heapq.heappop(heap)
+
+        if distance[v] < way_point_cost:
+            continue
+
+        for u, cost in graph[v]:
+            total_cost = cost + way_point_cost
+            if total_cost < distance[u]:
+                distance[u] = total_cost
+                heapq.heappush(heap, (total_cost, u))
+
+    for i in range(len(distance)):
+        if distance[i] == INF:
+            distance[i] = -1
+
+    return distance.count(max(distance))
