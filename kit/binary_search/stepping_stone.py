@@ -3,6 +3,8 @@ def solution(distance, rocks, n):
     total = len(rocks)
     left = 0
     right = distance
+    
+    rocks.sort()
 
     while left <= right:
         mid = (left + right) // 2
@@ -11,15 +13,12 @@ def solution(distance, rocks, n):
         for rock in rocks:
             if base + mid <= rock:
                 cnt += 1
-                base += rock # (2)
+                base = rock
 
-        if cnt + n < total:
-            # if total - cnt < n:
+        if total - cnt > n:
             right = mid - 1
         else:
+            answer = mid
             left = mid + 1
 
-    return mid
-
-
-print(solution(25, [2, 14, 11, 21, 17], 2))
+    return answer
