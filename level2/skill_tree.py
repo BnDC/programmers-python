@@ -1,9 +1,6 @@
 def solution(skill, sill_trees):
     answer = 0
-    graph = {s: [] for s in skill}
-
-    for i in range(len(skill)):
-        graph[skill[i]] = set(skill[:i])
+    graph = {skill[i]: set(skill[:i])  for i in range(len(skill))}
 
     for skill_tree in sill_trees:
         is_True = True
@@ -18,5 +15,6 @@ def solution(skill, sill_trees):
             answer += 1
 
     return answer
+
 
 print(solution("CBD", ["BACDE", "CBADF", "AECB", "BDA"]))
