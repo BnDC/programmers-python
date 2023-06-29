@@ -16,3 +16,7 @@ def solution(n, k, enemy):
             n += -heapq.heappop(heap)
         answer += 1
     return answer
+
+
+print(solution(7, 3, [4, 2, 4, 5, 3, 3, 1]) == 5)
+print(solution(2, 4, [3, 3, 3, 3]) == 4)
